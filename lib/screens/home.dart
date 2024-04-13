@@ -16,24 +16,31 @@ class Home extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.grey[900],
       ),
-      body: getGridView(),
+      body: Column(
+        children: [
+          getScoreBorad(),
+          getGridView(),
+        ],
+      ),
     );
   }
 
-  GridView getGridView() {
-    return GridView.builder(
-      itemCount: 9,
-      gridDelegate:
-          const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-      itemBuilder: (BuildContext context, int index) {
-        return Container(
-          width: 100,
-          height: 100,
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey),
-          ),
-        );
-      },
+  Widget getGridView() {
+    return Expanded(
+      child: GridView.builder(
+        itemCount: 9,
+        gridDelegate:
+            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+            width: 100,
+            height: 100,
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+            ),
+          );
+        },
+      ),
     );
   }
 
