@@ -16,11 +16,27 @@ class Home extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.grey[900],
       ),
-      body: Column(
-        children: [
-          getScoreBorad(),
-          getGridView(),
-        ],
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            getScoreBorad(),
+            const SizedBox(height: 40),
+            getGridView(),
+            getTurn()
+          ],
+        ),
+      ),
+    );
+  }
+
+  Text getTurn() {
+    return const Text(
+      'Turn O',
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 20.0,
+        fontWeight: FontWeight.bold,
       ),
     );
   }
