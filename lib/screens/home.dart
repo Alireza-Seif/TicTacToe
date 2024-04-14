@@ -71,7 +71,9 @@ class _HomeState extends State<Home> {
                   style: TextStyle(
                     fontSize: 60,
                     fontWeight: FontWeight.bold,
-                    color: xOrOList[index] == 'X' ? Colors.white : Colors.blueAccent,
+                    color: xOrOList[index] == 'X'
+                        ? Colors.white
+                        : Colors.blueAccent,
                   ),
                 ),
               ),
@@ -85,15 +87,69 @@ class _HomeState extends State<Home> {
   void tapped(int index) {
     print('click on $index');
     setState(() {
-      if (isTurnO && xOrOList[index] == '') {
+      if (xOrOList[index] != '') {
+        return;
+      }
+
+      if (isTurnO) {
         xOrOList[index] = 'O';
-        isTurnO = false;
-      }
-      if (!isTurnO && xOrOList[index] == '') {
+      } else {
         xOrOList[index] = 'X';
-        isTurnO = true;
       }
+      isTurnO = !isTurnO;
+
+      checkWineer();
     });
+  }
+
+  void checkWineer() {
+    if (xOrOList[0] == xOrOList[1] &&
+        xOrOList[0] == xOrOList[2] &&
+        xOrOList[0] != '') {
+      print(xOrOList[0] + ' is winner');
+    }
+
+    if (xOrOList[3] == xOrOList[4] &&
+        xOrOList[3] == xOrOList[5] &&
+        xOrOList[3] != '') {
+      print(xOrOList[3] + ' is winner');
+    }
+
+    if (xOrOList[6] == xOrOList[7] &&
+        xOrOList[6] == xOrOList[8] &&
+        xOrOList[6] != '') {
+      print(xOrOList[6] + ' is winner');
+    }
+
+    if (xOrOList[0] == xOrOList[3] &&
+        xOrOList[0] == xOrOList[6] &&
+        xOrOList[0] != '') {
+      print(xOrOList[0] + ' is winner');
+    }
+
+    if (xOrOList[1] == xOrOList[4] &&
+        xOrOList[1] == xOrOList[7] &&
+        xOrOList[1] != '') {
+      print(xOrOList[1] + ' is winner');
+    }
+
+    if (xOrOList[2] == xOrOList[5] &&
+        xOrOList[2] == xOrOList[8] &&
+        xOrOList[2] != '') {
+      print(xOrOList[2] + ' is winner');
+    }
+
+    if (xOrOList[0] == xOrOList[4] &&
+        xOrOList[0] == xOrOList[8] &&
+        xOrOList[0] != '') {
+      print(xOrOList[0] + ' is winner');
+    }
+
+    if (xOrOList[2] == xOrOList[4] &&
+        xOrOList[2] == xOrOList[6] &&
+        xOrOList[2] != '') {
+      print(xOrOList[2] + ' is winner');
+    }
   }
 
   Widget getScoreBorad() {
