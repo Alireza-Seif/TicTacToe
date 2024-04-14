@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  bool isTurnO = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,9 +37,9 @@ class Home extends StatelessWidget {
   }
 
   Text getTurn() {
-    return const Text(
-      'Turn O',
-      style: TextStyle(
+    return Text(
+      isTurnO ? 'Turn O' : 'Turn X',
+      style: const TextStyle(
         color: Colors.white,
         fontSize: 20.0,
         fontWeight: FontWeight.bold,
@@ -57,7 +63,7 @@ class Home extends StatelessWidget {
               height: 100,
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
-              ),
+              ), 
             ),
           );
         },
@@ -65,7 +71,12 @@ class Home extends StatelessWidget {
     );
   }
 
-  void tapped(int index) => print('click on $index');
+  void tapped(int index) {
+    print('click on $index');
+    setState(() {
+      isTurnO = !isTurnO;
+    }); 
+  }
 
   Widget getScoreBorad() {
     return const Row(
