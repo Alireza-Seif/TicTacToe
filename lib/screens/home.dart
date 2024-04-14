@@ -11,6 +11,10 @@ class _HomeState extends State<Home> {
   bool isTurnO = true;
   List<String> xOrOList = ['', '', '', '', '', '', '', '', ''];
   int filledBoxes = 0;
+  bool gameHasResult = false;
+  int scoreX = 0;
+  int scoreO = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,71 +123,71 @@ class _HomeState extends State<Home> {
     if (xOrOList[0] == xOrOList[1] &&
         xOrOList[0] == xOrOList[2] &&
         xOrOList[0] != '') {
-      print(xOrOList[0] + ' is winner');
+      setResult(xOrOList[0], '${xOrOList[0]} is winner');
       return;
     }
 
     if (xOrOList[3] == xOrOList[4] &&
         xOrOList[3] == xOrOList[5] &&
         xOrOList[3] != '') {
-      print(xOrOList[3] + ' is winner');
+      setResult(xOrOList[3], '${xOrOList[3]} is winner');
       return;
     }
 
     if (xOrOList[6] == xOrOList[7] &&
         xOrOList[6] == xOrOList[8] &&
         xOrOList[6] != '') {
-      print(xOrOList[6] + ' is winner');
+      setResult(xOrOList[6], '${xOrOList[6]} is winner');
       return;
     }
 
     if (xOrOList[0] == xOrOList[3] &&
         xOrOList[0] == xOrOList[6] &&
         xOrOList[0] != '') {
-      print(xOrOList[0] + ' is winner');
+      setResult(xOrOList[0], '${xOrOList[0]} is winner');
       return;
     }
 
     if (xOrOList[1] == xOrOList[4] &&
         xOrOList[1] == xOrOList[7] &&
         xOrOList[1] != '') {
-      print(xOrOList[1] + ' is winner');
+      setResult(xOrOList[1], '${xOrOList[1]} is winner');
       return;
     }
 
     if (xOrOList[2] == xOrOList[5] &&
         xOrOList[2] == xOrOList[8] &&
         xOrOList[2] != '') {
-      print(xOrOList[2] + ' is winner');
+      setResult(xOrOList[2], '${xOrOList[2]} is winner');
       return;
     }
 
     if (xOrOList[0] == xOrOList[4] &&
         xOrOList[0] == xOrOList[8] &&
         xOrOList[0] != '') {
-      print(xOrOList[0] + ' is winner');
+      setResult(xOrOList[0], '${xOrOList[0]} is winner');
       return;
     }
 
     if (xOrOList[2] == xOrOList[4] &&
         xOrOList[2] == xOrOList[6] &&
         xOrOList[2] != '') {
-      print(xOrOList[2] + ' is winner');
+      setResult(xOrOList[2], '${xOrOList[2]} is winner');
       return;
     }
 
     if (filledBoxes == 9) {
-      print('Game is equal');
+      setResult('', 'Draw');
     }
   }
 
   Widget getScoreBorad() {
-    return const Row(
+    return  Row(
       children: [
         Expanded(
           child: Column(
             children: [
-              Padding(
+              const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
                   'Player O',
@@ -191,10 +195,10 @@ class _HomeState extends State<Home> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  '0',
-                  style: TextStyle(fontSize: 25.0, color: Colors.white),
+                  '$scoreO',
+                  style: const TextStyle(fontSize: 25.0, color: Colors.white),
                 ),
               ),
             ],
@@ -203,7 +207,7 @@ class _HomeState extends State<Home> {
         Expanded(
           child: Column(
             children: [
-              Padding(
+              const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
                   'Player X',
@@ -211,10 +215,10 @@ class _HomeState extends State<Home> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  '0',
-                  style: TextStyle(fontSize: 25.0, color: Colors.white),
+                  '$scoreX',
+                  style: const TextStyle(fontSize: 25.0, color: Colors.white),
                 ),
               ),
             ],
@@ -230,6 +234,20 @@ class _HomeState extends State<Home> {
         xOrOList[i] = '';
       }
       filledBoxes = 0;
+    });
+  }
+
+  void setResult(String winner, String title) {
+    setState(() {
+      gameHasResult = true;
+      if (winner == 'X') {
+        scoreX = scoreX + 1;
+      } else if (winner == 'O') {
+        scoreO = scoreO + 1;
+      }else{
+        scoreX = scoreX;
+        scoreO = scoreO;
+      }
     });
   }
 }
