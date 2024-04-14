@@ -9,6 +9,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   bool isTurnO = true;
+  List<String> xOrOList = ['', '', '', '', '', '', '', '', ''];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +64,14 @@ class _HomeState extends State<Home> {
               height: 100,
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
-              ), 
+              ),
+              child: Text(
+                xOrOList[index],
+                style: TextStyle(
+                  fontSize: 60,
+                  color: Colors.white,
+                ),
+              ),
             ),
           );
         },
@@ -74,8 +82,13 @@ class _HomeState extends State<Home> {
   void tapped(int index) {
     print('click on $index');
     setState(() {
+      if (isTurnO) {
+        xOrOList[index] = 'O';
+      } else {
+        xOrOList[index] = 'X';
+      }
       isTurnO = !isTurnO;
-    }); 
+    });
   }
 
   Widget getScoreBorad() {
