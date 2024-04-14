@@ -82,12 +82,14 @@ class _HomeState extends State<Home> {
   void tapped(int index) {
     print('click on $index');
     setState(() {
-      if (isTurnO) {
+      if (isTurnO && xOrOList[index] == '') {
         xOrOList[index] = 'O';
-      } else {
-        xOrOList[index] = 'X';
+        isTurnO = false;
       }
-      isTurnO = !isTurnO;
+      if (!isTurnO && xOrOList[index] == '') {
+        xOrOList[index] = 'X';
+        isTurnO = true;
+      }
     });
   }
 
