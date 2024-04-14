@@ -23,6 +23,17 @@ class _HomeState extends State<Home> {
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.grey[900],
+        actions: [
+          IconButton(
+              onPressed: () {
+                cleanGame();
+              },
+              icon: const Icon(
+                Icons.refresh,
+                color: Colors.white,
+                size: 30,
+              ))
+        ],
       ),
       body: SafeArea(
         child: Column(
@@ -211,5 +222,14 @@ class _HomeState extends State<Home> {
         ),
       ],
     );
+  }
+
+  void cleanGame() {
+    setState(() {
+      for (var i = 0; i < xOrOList.length; i++) {
+        xOrOList[i] = '';
+      }
+      filledBoxes = 0;
+    });
   }
 }
