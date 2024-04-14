@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -14,6 +15,7 @@ class _HomeState extends State<Home> {
   bool gameHasResult = false;
   int scoreX = 0;
   int scoreO = 0;
+  String winnerTitle = '';
 
   @override
   Widget build(BuildContext context) {
@@ -45,11 +47,35 @@ class _HomeState extends State<Home> {
             const SizedBox(height: 20),
             getScoreBorad(),
             const SizedBox(height: 40),
+            getResultButton(),
+            const SizedBox(height: 20),
             getGridView(),
             getTurn()
           ],
         ),
       ),
+    );
+  }
+
+  Widget getResultButton() {
+    return Visibility(
+      visible: gameHasResult,
+      child: OutlinedButton(
+          onPressed: () {
+            setState(() {
+              gameHasResult = false;
+              cleanGame();
+            });
+          },
+          style: OutlinedButton.styleFrom(
+            foregroundColor: Colors.white,
+            side: const BorderSide(width: 2, color: Colors.white),
+          ),
+          child: Text(
+            '$winnerTitle, play again?',
+            style: const TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+          )),
     );
   }
 
@@ -101,6 +127,10 @@ class _HomeState extends State<Home> {
   }
 
   void tapped(int index) {
+    if (gameHasResult) {
+      return;
+    }
+
     setState(() {
       if (xOrOList[index] != '') {
         return;
@@ -123,56 +153,56 @@ class _HomeState extends State<Home> {
     if (xOrOList[0] == xOrOList[1] &&
         xOrOList[0] == xOrOList[2] &&
         xOrOList[0] != '') {
-      setResult(xOrOList[0], '${xOrOList[0]} is winner');
+      setResult(xOrOList[0], 'winner is ${xOrOList[0]}');
       return;
     }
 
     if (xOrOList[3] == xOrOList[4] &&
         xOrOList[3] == xOrOList[5] &&
         xOrOList[3] != '') {
-      setResult(xOrOList[3], '${xOrOList[3]} is winner');
+      setResult(xOrOList[3], 'winner ${xOrOList[3]}');
       return;
     }
 
     if (xOrOList[6] == xOrOList[7] &&
         xOrOList[6] == xOrOList[8] &&
         xOrOList[6] != '') {
-      setResult(xOrOList[6], '${xOrOList[6]} is winner');
+      setResult(xOrOList[6], 'winner is ${xOrOList[6]} ');
       return;
     }
 
     if (xOrOList[0] == xOrOList[3] &&
         xOrOList[0] == xOrOList[6] &&
         xOrOList[0] != '') {
-      setResult(xOrOList[0], '${xOrOList[0]} is winner');
+      setResult(xOrOList[0], 'winner is ${xOrOList[0]}');
       return;
     }
 
     if (xOrOList[1] == xOrOList[4] &&
         xOrOList[1] == xOrOList[7] &&
         xOrOList[1] != '') {
-      setResult(xOrOList[1], '${xOrOList[1]} is winner');
+      setResult(xOrOList[1], 'winner is ${xOrOList[1]}');
       return;
     }
 
     if (xOrOList[2] == xOrOList[5] &&
         xOrOList[2] == xOrOList[8] &&
         xOrOList[2] != '') {
-      setResult(xOrOList[2], '${xOrOList[2]} is winner');
+      setResult(xOrOList[2], 'winner is ${xOrOList[2]}');
       return;
     }
 
     if (xOrOList[0] == xOrOList[4] &&
         xOrOList[0] == xOrOList[8] &&
         xOrOList[0] != '') {
-      setResult(xOrOList[0], '${xOrOList[0]} is winner');
+      setResult(xOrOList[0], 'winner is ${xOrOList[0]}');
       return;
     }
 
     if (xOrOList[2] == xOrOList[4] &&
         xOrOList[2] == xOrOList[6] &&
         xOrOList[2] != '') {
-      setResult(xOrOList[2], '${xOrOList[2]} is winner');
+      setResult(xOrOList[2], 'winner is ${xOrOList[2]}');
       return;
     }
 
@@ -182,7 +212,7 @@ class _HomeState extends State<Home> {
   }
 
   Widget getScoreBorad() {
-    return  Row(
+    return Row(
       children: [
         Expanded(
           child: Column(
@@ -239,12 +269,13 @@ class _HomeState extends State<Home> {
 
   void setResult(String winner, String title) {
     setState(() {
+      winnerTitle = title;
       gameHasResult = true;
       if (winner == 'X') {
         scoreX = scoreX + 1;
       } else if (winner == 'O') {
         scoreO = scoreO + 1;
-      }else{
+      } else {
         scoreX = scoreX;
         scoreO = scoreO;
       }
